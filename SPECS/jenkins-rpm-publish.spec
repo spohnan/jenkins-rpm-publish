@@ -40,7 +40,7 @@ exit 0
 %files
 
 %defattr(755,root,root)
-/usr/local/bin/jenkins-publish-rpm
+/usr/local/bin/jenkins-publish-rpm.sh
 
 
 %changelog
