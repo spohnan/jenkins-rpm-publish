@@ -43,7 +43,7 @@ exit 0
 /usr/local/bin/jenkins-publish-rpm.sh
 
 %defattr(755,root,jboss)
-/var/www/html/repos
+%dir /var/www/html/repos/
 
 
 
