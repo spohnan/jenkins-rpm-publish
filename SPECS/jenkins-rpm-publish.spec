@@ -27,6 +27,7 @@ exit 0
 %install
 rm -fr %{buildroot}
 cp -R %{_sourcedir}/jenkins-rpm-publish %{buildroot}
+install -d %{buildroot}/var/www/html/repos/
 
 %clean
 rm -fr %{buildroot}
