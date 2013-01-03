@@ -4,7 +4,7 @@
 %define buildroot             %{_topdir}/BUILD/%{name}-%{version}-root
 
 # RPM Header info
-Summary: An RPM containing scripts to assist with publishing RPMs build by jenkins to a yum repository
+Summary: An RPM containing scripts to assist with publishing RPMs built by jenkins to a yum repository
 Name:      %{name}
 Version:   %{version}
 Release:   %{release}
@@ -13,10 +13,10 @@ BuildRoot: %{buildroot}
 Source:    https://github.com/spohnan/jenkins-rpm-publish
 URL:       https://github.com/spohnan/jenkins-rpm-publish
 License:   MIT
-requires:  createrepo
+requires:  createrepo, httpd
 
 %description
-An RPM containing scripts to assist with publishing RPMs build by jenkins to a yum repository
+An RPM containing scripts to assist with publishing RPMs built by jenkins to a yum repository
 
 %prep
 exit 0
@@ -41,6 +41,10 @@ exit 0
 
 %defattr(755,root,root)
 /usr/local/bin/jenkins-publish-rpm.sh
+
+%defattr(755,root,jboss)
+/var/www/html/repos
+
 
 
 %changelog
