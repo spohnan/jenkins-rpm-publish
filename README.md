@@ -25,7 +25,8 @@ build step.
 
 Download
 =================
-Download source rpm or binary (noarch) rpm for CentOS 6
+Download [source](http://static-01.andyspohn.com/rpm/centos/6/jenkins-rpm-publish-1.0.src.rpm) rpm
+or binary (noarch) rpm for [CentOS 6](http://static-01.andyspohn.com/rpm/centos/6/jenkins-rpm-publish-1.0.noarch.rpm)
 
 
 Building
