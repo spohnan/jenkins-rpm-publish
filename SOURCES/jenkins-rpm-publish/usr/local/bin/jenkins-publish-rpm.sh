@@ -43,7 +43,7 @@ truncateNumVersions() {
         # List in time sequence with newest on top, use tail to figure out how many
         # of the oldest files we want to chop from the bottom of the list and pipe
         # to the remove command
-        ls -t $1/$2 | xargs -n1 basename | tail -n +$(($3+1)) | xargs rm -f
+        ls -t $1/$(basename "$2") | tail -n +$(($3+1)) | xargs rm -f
     fi
 }
 
