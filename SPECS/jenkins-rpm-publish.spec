@@ -1,6 +1,6 @@
 # Settings that might need to be updated
 %define name                  jenkins-rpm-publish
-%define version               1.0
+%define version               1.1
 %define buildroot             %{_topdir}/BUILD/%{name}-%{version}-root
 
 # RPM Header info
