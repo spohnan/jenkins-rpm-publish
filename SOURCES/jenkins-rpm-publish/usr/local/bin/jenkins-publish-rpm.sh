@@ -7,7 +7,7 @@
 #  - Refresh the metadata of the yum repository into which a new rpm has been added
 #  - Optionally, it will also optionally truncate the number of versions a single rpm kept in the repo
 
-USAGE_ERROR_STR="Usage: jenkins-publish-rpm.sh REPO_DIR RPM_NAME [MAX_VERSIONS]"
+USAGE_ERROR_STR="Usage: jenkins-publish-rpm.sh REPO_DIR RPM_BASE_DIR RPM_NAME [MAX_VERSIONS]"
 RPM_REPO_DIR_ERROR_STR="Could not locate or access rpm repo directory argument"
 MAX_RPM_VERSION_ERROR_STR="The max number of rpm versions to keep argument must be a positive integer"
 ERROR_STR=
@@ -16,15 +16,16 @@ ERROR_STR=
 TEST_RUN="THIS_IS_ONLY_A_TEST"
 
 RPM_REPO_DIR="$1"
-RPM_NAME="$2"
-MAX_RPM_VERSIONS=$3
+RPM_BASE_DIR="$2"
+RPM_NAME="$3"
+MAX_RPM_VERSIONS=$4
 NUM_ARGUMENTS=$#
 
 # This is the main purpose of this script
 publishRpm() {
 
     # Copy the file to the right place
-    cp -f $RPM_NAME $RPM_REPO_DIR
+    cp -f $RPM_BASE_DIR/$RPM_NAME $RPM_REPO_DIR
 
     # If the optional max versions argument was passed
     if ( isPositiveIntegerValue "$MAX_RPM_VERSIONS" ) ; then
@@ -39,11 +40,11 @@ publishRpm() {
 #   Used to get rid of older versions of the same RPM
 truncateNumVersions() {
     # Sanity check the arguments a bit
-    if [ -d $1 ] && isPositiveIntegerValue $3 ; then
+    if [ -d "$1" ] && isPositiveIntegerValue $3 ; then
         # List in time sequence with newest on top, use tail to figure out how many
         # of the oldest files we want to chop from the bottom of the list and pipe
         # to the remove command
-        ls -t $1/$(basename "$2") | tail -n +$(($3+1)) | xargs rm -f
+        ls -t "$1"/"$2" | tail -n +$(($3+1)) | xargs rm -f
     fi
 }
 
@@ -70,7 +71,7 @@ isTestRun() {
 }
 
 # Check the number of arguments
-if [[ $NUM_ARGUMENTS -ge 2 && $NUM_ARGUMENTS -le 3 ]] ; then
+if [[ $NUM_ARGUMENTS -ge 3 && $NUM_ARGUMENTS -le 4 ]] ; then
 
     # Check that the repo dir given actually exists
     if [ ! -d $RPM_REPO_DIR ] ; then

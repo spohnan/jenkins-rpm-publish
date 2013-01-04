@@ -100,13 +100,13 @@ testStringValue() {
 # ----------------------------------------------------------------------
 
 testNonExistentDirectoryArg() {
-    . $SCRIPT_TO_BE_TESTED /tmp/ab.1231232.i.do.not.exist foo2 5 >/dev/null 2>&1
+    . $SCRIPT_TO_BE_TESTED /tmp/ab.1231232.i.do.not.exist /tmp foo2 5 >/dev/null 2>&1
     assertEquals "Rpm directory arg must refer to an actual directory" \
         "$RPM_REPO_DIR_ERROR_STR" "$ERROR_STR"
 }
 
 testNonNumericMaxNumRpmsArg() {
-    . $SCRIPT_TO_BE_TESTED /tmp foo2 foo3 >/dev/null 2>&1
+    . $SCRIPT_TO_BE_TESTED /tmp /tmp foo2 foo3 >/dev/null 2>&1
     assertEquals "Third argument should be numeric if present" \
         "$MAX_RPM_VERSION_ERROR_STR" "$ERROR_STR"
 }
@@ -118,7 +118,7 @@ testTooFewArgs() {
 }
 
 testTooManyArgs() {
-    . $SCRIPT_TO_BE_TESTED foo1 foo2 foo3 foo4 >/dev/null 2>&1
+    . $SCRIPT_TO_BE_TESTED foo1 foo2 foo3 foo4 foo5 >/dev/null 2>&1
     assertEquals "Too many args should result in usage error str" \
         "$USAGE_ERROR_STR" "$ERROR_STR"
 }
@@ -130,7 +130,7 @@ testMissingAllArgs() {
 }
 
 testOnlyRequiredArgs() {
-    . $SCRIPT_TO_BE_TESTED /tmp $TEST_RUN >/dev/null 2>&1
+    . $SCRIPT_TO_BE_TESTED /tmp /tmp $TEST_RUN >/dev/null 2>&1
     assertEquals "Third argument is optional" "$NO_ERRORS" "$ERROR_STR"
 }
 
