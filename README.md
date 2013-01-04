@@ -12,15 +12,17 @@ this jenkins-rpm-publish capability to build an rpm and publish to a locally hos
 This snippet would be copied into the Execute Shell text area available after adding the additional
 build step.
 
-    # Settings
-    RPM_VERSIONS_TO_KEEP=3
-    RPM_REPO_BASE=/var/www/html/repos/centos/6/custom
-    RPM_NAME=jenkins-rpm-publish-*.rpm
+```shell
+# Settings
+RPM_VERSIONS_TO_KEEP=3
+RPM_REPO_BASE=/var/www/html/repos/centos/6/custom
+RPM_NAME=jenkins-rpm-publish-*.rpm
 
-    # Build and publish
-    jenkins-build-rpm.sh
-    jenkins-publish-rpm.sh $RPM_REPO_BASE/x86_64 RPMS/noarch $RPM_NAME $RPM_VERSIONS_TO_KEEP
-    jenkins-publish-rpm.sh $RPM_REPO_BASE/SRPMS SRPMS $RPM_NAME $RPM_VERSIONS_TO_KEEP
+# Build and publish
+jenkins-build-rpm.sh
+jenkins-publish-rpm.sh $RPM_REPO_BASE/x86_64 RPMS/noarch $RPM_NAME $RPM_VERSIONS_TO_KEEP
+jenkins-publish-rpm.sh $RPM_REPO_BASE/SRPMS SRPMS $RPM_NAME $RPM_VERSIONS_TO_KEEP
+```
 
 Another finishing step once the publishing functionality has been configured would be to create custom
 repo config files for clients looking to use rpm builds from this build service. The example below is
@@ -39,12 +41,13 @@ for several hours which is the default setting.
 A final build idea for RPM projects like this one that have a [shunit2](https://code.google.com/p/shunit2/) based test
 suite is to add a second Execute shell step above the build that looks something like the example below to run the tests.
 
-    # Remove any old artifacts so they don't get archived with this build
-    rm -f RPMS/noarch/*.rpm SRPMS/*.rpm
+```shell
+# Remove any old artifacts so they don't get archived with this build
+rm -f RPMS/noarch/*.rpm SRPMS/*.rpm
 
-    # Run test suite
-    TESTS/run-tests.sh
-
+# Run test suite
+TESTS/run-tests.sh
+```
 
 Download
 =================
@@ -60,7 +63,9 @@ Clone this project into PROJECT_DIR
 
 Build the RPM
 
-    rpmbuild \
-        --define "release `date +%Y%m%d%H%M%S`" \
-        --define "_topdir $PROJECT_DIR/jenkins-rpm-publish" \
-        -ba SPECS/jenkins-rpm-publish.spec
+```shell
+rpmbuild \
+    --define "release `date +%Y%m%d%H%M%S`" \
+    --define "_topdir $PROJECT_DIR/jenkins-rpm-publish" \
+    -ba SPECS/jenkins-rpm-publish.spec
+```
