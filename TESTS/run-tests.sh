@@ -13,7 +13,7 @@ NO_ERRORS=""
 # max number of rpm version truncation tests
 # ----------------------------------------------------------------------
 testMaxVersionTruncation() {
-    local MY_RPM_NAME="cool-stuff"
+    local MY_RPM_NAME="cool-stuff-*.rpm"
     local MAX_NUM_VERSIONS=2
 
     # Set up new files, instruct to keep only the two latest
@@ -26,7 +26,7 @@ testMaxVersionTruncation() {
 }
 
 testMaxVersionTruncationWithBadNumberArg() {
-    local MY_RPM_NAME="cool-stuff"
+    local MY_RPM_NAME="cool-stuff-*.rpm"
     local MAX_NUM_VERSIONS=foo
 
     # Set up new files, instruct to keep only the two latest
@@ -39,8 +39,8 @@ testMaxVersionTruncationWithBadNumberArg() {
 }
 
 testMaxVersionTruncationWithSeveralRpms() {
-    local RPM_ONE_NAME="cool-stuff"
-    local RPM_TWO_NAME="cool-stuff2"
+    local RPM_ONE_NAME="cool-stuff-*.rpm"
+    local RPM_TWO_NAME="cool-stuff2-*.rpm"
     local MAX_NUM_VERSIONS=4
 
     # Set up both sets of files but only truncate one of them
