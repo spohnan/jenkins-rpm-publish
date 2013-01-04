@@ -22,6 +22,20 @@ build step.
     jenkins-publish-rpm.sh $RPM_REPO_BASE/x86_64 RPMS/noarch $RPM_NAME $RPM_VERSIONS_TO_KEEP
     jenkins-publish-rpm.sh $RPM_REPO_BASE/SRPMS SRPMS $RPM_NAME $RPM_VERSIONS_TO_KEEP
 
+Another finishing step once the publishing functionality has been configured would be to create custom
+repo config files for clients looking to use rpm builds from this build service. The example below is
+from the build server itself so it is using a localhost URL. The key setting is the metadata_expire immediately
+setting which allows clients to immediately pick up a build using `yum update` instead of relying on metadata
+for several hours which is the default setting.
+
+    [root@build-01 ~]# cat /etc/yum.repos.d/Custom-RPMs.repo
+    [custom-rpms]
+    name=Custom RPMs
+    baseurl=http://localhost/repos/centos/6/custom/x86_64/
+    enabled=1
+    gpgcheck=0
+    metadata_expire=0
+
 
 Download
 =================
