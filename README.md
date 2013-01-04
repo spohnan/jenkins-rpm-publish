@@ -36,6 +36,15 @@ for several hours which is the default setting.
     gpgcheck=0
     metadata_expire=0
 
+A final build idea for RPM projects like this one that have a [shunit2](https://code.google.com/p/shunit2/) based test
+suite is to add a second Execute shell step above the build that looks something like the example below to run the tests.
+
+    # Remove any old artifacts so they don't get archived with this build
+    rm -f RPMS/noarch/*.rpm SRPMS/*.rpm
+
+    # Run test suite
+    TESTS/run-tests.sh
+
 
 Download
 =================
