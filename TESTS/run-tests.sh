@@ -9,9 +9,6 @@ TEST_RUN=
 ERROR_STR=
 NO_ERRORS=""
 
-testKnownToFail() {
-    assertTrue "Bet this is going to fail ..." "false"
-}
 
 # max number of rpm version truncation tests
 # ----------------------------------------------------------------------
